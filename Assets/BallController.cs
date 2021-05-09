@@ -11,8 +11,31 @@ public class BallController : MonoBehaviour
 
     //ゲームオーバーを表示するテキスト
     private GameObject gameoverText;
-
     private GameObject pointText;
+    int point = 0;
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "SmallStarTag")
+        {
+            this.point += 10;
+        }
+        else if (collision.gameObject.tag == "LargeStarTag")
+        {
+            this.point += 15;
+        }
+        else if (collision.gameObject.tag == "SmallCloudTag")
+        {
+            this.point += 20;
+        }
+        else if (collision.gameObject.tag == "LargeCloudTag")
+        {
+            this.point += 25;
+        }
+    }
+
+
 
     void Start()
     {
@@ -30,25 +53,9 @@ public class BallController : MonoBehaviour
             //GameOverTextにゲームオーバーを表示
             this.gameoverText.GetComponent<Text> ().text = "Game Over";
         }
+
+        this.pointText.GetComponent<Text>().text = this.point+ " point";
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "SmallStarTag")
-        {
-            this.pointText.GetComponent<Text>().text = "10 Point";
-        }
-        else if(collision.gameObject.tag == "LargeStarTag")
-        {
-            this.pointText.GetComponent<Text>().text = "15 Point";
-        }
-        else if (collision.gameObject.tag == "SmallCloudTag")
-        {
-            this.pointText.GetComponent<Text>().text = "20 Point";
-        }
-        else if (collision.gameObject.tag == "LargeCloudTag")
-        {
-            this.pointText.GetComponent<Text>().text = "25 Point";
-        }
-    }
+
 }
